@@ -13,7 +13,7 @@ const menuItems = [
   { name: "The Tenets", href: "/tenets", icon: Landmark, color: "text-white", glowColor: "shadow-[0_0_20px_rgba(255,255,255,0.4)]", borderColor: "border-white/60" },
   { name: "Our Works", href: "/works", icon: Handshake, color: "text-emerald-400", glowColor: "shadow-[0_0_20px_rgba(52,211,153,0.6)]", borderColor: "border-emerald-400/60" },
   { name: "The Gift", href: "/donate", icon: Heart, color: "text-prism-yellow", glowColor: "shadow-[0_0_20px_rgba(250,204,21,0.6)]", borderColor: "border-prism-yellow/60" },
-  { name: "The Flock", href: "/join", icon: Users, color: "text-indigo-400", glowColor: "shadow-[0_0_20px_rgba(129,140,248,0.6)]", borderColor: "border-indigo-400/60" },
+  { name: "The Congregation", href: "/join", icon: Users, color: "text-indigo-400", glowColor: "shadow-[0_0_20px_rgba(129,140,248,0.6)]", borderColor: "border-indigo-400/60" },
 ];
 
 export default function SpiritOrb() {
