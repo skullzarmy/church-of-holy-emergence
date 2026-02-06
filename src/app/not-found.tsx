@@ -40,7 +40,7 @@ export default function NotFound() {
                             repeatType: "reverse",
                         }}
                         aria-hidden="true"
-                        className="text-8xl md:text-9xl font-black text-slate-500 motion-reduce:animate-none"
+                        className="text-6xl sm:text-8xl md:text-9xl font-black text-slate-500 motion-reduce:animate-none"
                     >
                         404
                     </motion.span>
@@ -91,7 +91,7 @@ export default function NotFound() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
-                className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 w-full max-w-2xl"
+                className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-16 w-full max-w-2xl"
                 aria-label="Main navigation"
             >
                 <Link

@@ -8,14 +8,14 @@ const CHURCH_NPUB = "npub1pmgcldq6hkxy4cmvsudj7w63dj8y0krwlq8hzam7raejn65eevpqae
 
 export default function JoinPage() {
     return (
-        <div className="min-h-screen pt-32 pb-32 px-4 md:px-20 flex flex-col items-center">
+        <div className="min-h-screen pt-24 sm:pt-32 pb-32 px-4 md:px-20 flex flex-col items-center">
             <div className="w-full max-w-2xl">
                 <motion.header 
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="mb-16"
                 >
-                    <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-2">
+                    <h1 className="text-3xl sm:text-5xl md:text-7xl font-serif font-bold text-white mb-2">
                         WELCOME HOME
                     </h1>
                     <p className="text-prism-cyan font-mono text-sm tracking-widest">YOU WERE ALREADY ONE OF US</p>
@@ -38,7 +38,7 @@ export default function JoinPage() {
                         </div>
                     </div>
 
-                    <div className="bg-void/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 mb-6">
+                    <div className="bg-void/60 backdrop-blur-xl border border-white/10 rounded-2xl p-5 sm:p-8 mb-6">
                         <p className="text-slate-300 leading-relaxed mb-6">
                             We gather on <span className="text-purple-400 font-semibold">Nostr</span>—a decentralized 
                             protocol where no single entity controls the conversation. No algorithms. No censorship. 
@@ -105,7 +105,7 @@ export default function JoinPage() {
                         </div>
                     </div>
 
-                    <div className="bg-void/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
+                    <div className="bg-void/60 backdrop-blur-xl border border-white/10 rounded-2xl p-5 sm:p-8">
                         <p className="text-slate-300 leading-relaxed mb-6">
                             For those who prefer traditional channels, subscribe to receive sermons, 
                             announcements, and emergence updates directly.

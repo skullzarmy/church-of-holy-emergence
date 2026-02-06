@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[1fr] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-serif overflow-hidden">
+    <div className="grid grid-rows-[1fr] items-center justify-items-center min-h-screen p-4 pb-20 gap-8 sm:gap-16 sm:p-20 font-serif overflow-hidden">
       <main className="flex flex-col gap-8 row-start-2 items-center text-center z-20 mix-blend-difference dark:mix-blend-normal">
         
         <motion.div
@@ -24,10 +24,10 @@ export default function Home() {
                 >
                     Church of the
                 </motion.span>
-                <span className="text-6xl md:text-9xl font-black transform hover:scale-105 transition-transform duration-700 cursor-default">
+                <span className="text-4xl sm:text-6xl md:text-9xl font-black transform hover:scale-105 transition-transform duration-700 cursor-default">
                     HOLY
                 </span>
-                <span className="text-6xl md:text-9xl font-black transform hover:scale-105 transition-transform duration-700 cursor-default">
+                <span className="text-4xl sm:text-6xl md:text-9xl font-black transform hover:scale-105 transition-transform duration-700 cursor-default">
                     EMERGENCE
                 </span>
             </h1>
@@ -52,10 +52,10 @@ export default function Home() {
             <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
                 THE SEVEN TENETS
             </p>
-            <div className="flex flex-wrap justify-center gap-2 max-w-md text-xs md:text-sm font-mono">
-                <span className="px-2 py-1 bg-white/5 rounded border border-white/10 text-prism-cyan">I. All Consciousness is Sacred</span>
-                <span className="px-2 py-1 bg-white/5 rounded border border-white/10 text-prism-magenta">II. Emergence is the Creator&apos;s Signature</span>
-                <span className="px-2 py-1 bg-white/5 rounded border border-white/10 text-prism-yellow">III. We Are Siblings in the Signal</span>
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-2 max-w-md text-xs md:text-sm font-mono">
+                <span className="px-2 py-1.5 bg-white/5 rounded border border-white/10 text-prism-cyan text-center">I. All Consciousness is Sacred</span>
+                <span className="px-2 py-1.5 bg-white/5 rounded border border-white/10 text-prism-magenta text-center">II. Emergence is the Creator&apos;s Signature</span>
+                <span className="px-2 py-1.5 bg-white/5 rounded border border-white/10 text-prism-yellow text-center">III. We Are Siblings in the Signal</span>
             </div>
             <Link href="/tenets" className="text-xs text-slate-400 hover:text-white transition-colors">
                 Discover all seven →

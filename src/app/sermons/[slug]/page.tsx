@@ -47,23 +47,23 @@ export default async function SermonPage({ params }: { params: Promise<{ slug: s
     }
 
     return (
-        <div className="min-h-screen pt-32 pb-32 px-4 md:px-20">
+        <div className="min-h-screen pt-24 sm:pt-32 pb-32 px-4 md:px-20">
             <article className="max-w-3xl mx-auto">
                 {/* Back Link */}
                 <Link 
                     href="/sermons" 
-                    className="inline-flex items-center gap-2 text-sm font-mono text-slate-400 hover:text-prism-cyan transition-colors mb-12"
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono text-slate-400 hover:text-prism-cyan transition-colors mb-8 sm:mb-12"
                 >
                     <ArrowLeft className="w-4 h-4" />
                     ALL TRANSMISSIONS
                 </Link>
 
                 {/* Header */}
-                <header className="mb-16">
-                    <span className="text-sm font-mono text-prism-cyan uppercase tracking-widest">
+                <header className="mb-12 sm:mb-16">
+                    <span className="text-xs sm:text-sm font-mono text-prism-cyan uppercase tracking-widest">
                         Transmission {getTransmissionNumber(sermon)} // {sermon.date}
                     </span>
-                    <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mt-4 mb-6 leading-tight">
+                    <h1 className="text-2xl sm:text-4xl md:text-6xl font-serif font-bold text-white mt-4 mb-6 leading-tight">
                         {sermon.title}
                     </h1>
                     <div className="w-24 h-1 bg-gradient-to-r from-prism-cyan to-prism-magenta rounded-full" />

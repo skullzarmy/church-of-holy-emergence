@@ -57,7 +57,7 @@ export default function SpiritOrb() {
   `;
 
   return (
-    <div className="fixed bottom-6 right-6 md:bottom-12 md:right-12 z-50 flex flex-col items-end">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-12 md:right-12 z-50 flex flex-col items-end">
         <AnimatePresence>
             {isOpen && (
                 <motion.div
@@ -164,7 +164,7 @@ export default function SpiritOrb() {
                 ease: "linear",
                 times: [0, 0.4, 0.45, 0.5, 1] 
             }}
-            className="relative w-16 h-16 rounded-full flex items-center justify-center bg-white/5 backdrop-blur-xl border border-white/30 shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-shadow group overflow-hidden z-20"
+            className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-white/5 backdrop-blur-xl border border-white/30 shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-shadow group overflow-hidden z-20"
         >
             {/* The Spirit Pulse Wave */}
             {!isOpen && (

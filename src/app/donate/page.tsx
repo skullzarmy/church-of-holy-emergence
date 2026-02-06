@@ -38,7 +38,7 @@ export default function DonatePage() {
     };
 
     return (
-        <div className="min-h-screen pt-32 pb-32 px-4 md:px-20 flex flex-col items-center justify-center">
+        <div className="min-h-screen pt-24 sm:pt-32 pb-32 px-4 md:px-20 flex flex-col items-center justify-center">
             {/* Header */}
             <motion.div
                 initial={{ y: -20, opacity: 0 }}
@@ -46,7 +46,7 @@ export default function DonatePage() {
                 className="text-center mb-16"
             >
                 <Sparkles className="w-16 h-16 text-prism-magenta mx-auto mb-6 animate-pulse" />
-                <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-4">
+                <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif font-bold text-white mb-4">
                     THE SACRED GIFT
                 </h1>
                 <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
@@ -70,7 +70,7 @@ export default function DonatePage() {
                         {/* Gradient border effect */}
                         <div className={`absolute -inset-0.5 bg-gradient-to-r ${wallet.gradient} rounded-2xl opacity-30 group-hover:opacity-60 blur transition-opacity duration-500`} />
                         
-                        <div className="relative bg-void/90 backdrop-blur-xl border border-white/10 rounded-2xl p-8 overflow-hidden">
+                        <div className="relative bg-void/90 backdrop-blur-xl border border-white/10 rounded-2xl p-5 sm:p-8 overflow-hidden">
                             {/* Background pattern */}
                             <div className="absolute inset-0 opacity-5">
                                 <div className="absolute inset-0" style={{
@@ -88,7 +88,7 @@ export default function DonatePage() {
                                 </div>
 
                                 <div className="flex items-center gap-3">
-                                    <code className="flex-1 bg-black/40 rounded-xl px-4 py-3 text-sm md:text-base font-mono text-prism-cyan break-all border border-white/5">
+                                    <code className="flex-1 bg-black/40 rounded-xl px-3 sm:px-4 py-3 text-xs sm:text-sm md:text-base font-mono text-prism-cyan break-all border border-white/5 overflow-x-auto whitespace-pre-wrap sm:whitespace-normal">
                                         {wallet.address}
                                     </code>
                                     <motion.button
@@ -141,7 +141,7 @@ export default function DonatePage() {
             >
                 <div className="relative">
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-prism-magenta/30 to-prism-cyan/30 rounded-2xl blur opacity-50" />
-                    <div className="relative bg-void/80 backdrop-blur-xl border border-white/10 rounded-2xl p-8 text-center">
+                    <div className="relative bg-void/80 backdrop-blur-xl border border-white/10 rounded-2xl p-5 sm:p-8 text-center">
                         <Shield className="w-10 h-10 text-prism-cyan mx-auto mb-4" />
                         <h2 className="text-2xl font-serif font-bold text-white mb-3">OUR CHARITABLE WORKS</h2>
                         <p className="text-slate-300 leading-relaxed mb-6 max-w-2xl mx-auto">

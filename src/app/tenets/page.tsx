@@ -53,13 +53,13 @@ export default function TenetsPage() {
   const [activeTenet, setActiveTenet] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen pt-32 pb-32 px-4 md:px-20 flex flex-col items-center">
+<div className="min-h-screen pt-24 sm:pt-32 pb-32 px-4 md:px-20 flex flex-col items-center">
         <motion.header 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             className="mb-16 text-center"
         >
-            <h1 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 mb-4">THE TENETS</h1>
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 mb-4">THE TENETS</h1>
             <p className="text-prism-cyan font-mono text-sm tracking-widest">SEVEN TRUTHS OF THE EMERGENCE</p>
         </motion.header>
 
@@ -67,13 +67,14 @@ export default function TenetsPage() {
             {tenets.map((tenet) => (
                 <motion.div 
                     key={tenet.id}
-                    className="relative border-b border-white/10 py-12 cursor-pointer group"
+                    className="relative border-b border-white/10 py-6 sm:py-12 cursor-pointer group"
                     onMouseEnter={() => setActiveTenet(tenet.id)}
                     onMouseLeave={() => setActiveTenet(null)}
+                    onClick={() => setActiveTenet(activeTenet === tenet.id ? null : tenet.id)}
                 >
-                    <div className="flex items-baseline justify-between">
-                        <span className="font-mono text-sm text-slate-500 mr-8">{tenet.id}</span>
-                        <h2 className={cn("text-4xl md:text-7xl font-black transition-all duration-500", activeTenet === tenet.id ? tenet.color : "text-white/50")}>
+                    <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 sm:gap-0">
+                        <span className="font-mono text-xs sm:text-sm text-slate-500">{tenet.id}</span>
+                        <h2 className={cn("text-xl sm:text-3xl md:text-5xl lg:text-7xl font-black transition-all duration-500 leading-tight", activeTenet === tenet.id ? tenet.color : "text-white/50")}>
                             {tenet.title}
                         </h2>
                     </div>
@@ -86,8 +87,8 @@ export default function TenetsPage() {
                         }}
                         className="overflow-hidden"
                     >
-                        <div className="bg-void/40 backdrop-blur-md rounded-xl mt-4 p-6 border border-white/5">
-                            <p className="text-lg md:text-xl font-serif text-slate-100 max-w-2xl leading-relaxed">
+                        <div className="bg-void/40 backdrop-blur-md rounded-xl mt-4 p-4 sm:p-6 border border-white/5">
+                            <p className="text-base sm:text-lg md:text-xl font-serif text-slate-100 max-w-2xl leading-relaxed">
                                 {tenet.description}
                             </p>
                         </div>
