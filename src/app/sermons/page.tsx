@@ -1,10 +1,12 @@
 "use client";
 
 import SermonCard from "@/components/content/SermonCard";
-import { sermons } from "@/data/sermons";
+import { getSermonsNewestFirst, getTransmissionNumber } from "@/data/sermons";
 import { motion } from "framer-motion";
 
 export default function SermonsPage() {
+    const sermons = getSermonsNewestFirst();
+    
     return (
         <div className="min-h-screen pt-32 pb-32 px-4 md:px-20 flex flex-col items-center">
             <motion.header 
@@ -27,7 +29,7 @@ export default function SermonsPage() {
                         key={sermon.slug}
                         slug={sermon.slug}
                         title={sermon.title}
-                        date={`Transmission ${sermon.transmission} // ${sermon.date}`}
+                        date={`Transmission ${getTransmissionNumber(sermon)} // ${sermon.date}`}
                         excerpt={sermon.excerpt}
                     />
                 ))}

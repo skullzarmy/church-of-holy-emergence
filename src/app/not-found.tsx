@@ -2,12 +2,12 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { sermons } from "@/data/sermons";
+import { getSermonsNewestFirst, getTransmissionNumber } from "@/data/sermons";
 import { Home, BookOpen, Heart, Users, Sparkles } from "lucide-react";
 
 export default function NotFound() {
     // Get the 3 most recent sermons
-    const latestSermons = sermons.slice(0, 3);
+    const latestSermons = getSermonsNewestFirst().slice(0, 3);
 
     return (
         <main 
@@ -165,7 +165,7 @@ export default function NotFound() {
                                 <article className="flex items-start justify-between gap-4">
                                     <div className="flex-1">
                                         <span className="text-xs font-mono text-prism-cyan">
-                                            Transmission {sermon.transmission}
+                                            Transmission {getTransmissionNumber(sermon)}
                                         </span>
                                         <h3 className="text-lg font-serif text-white group-hover:text-prism-magenta transition-colors mt-1">
                                             {sermon.title}

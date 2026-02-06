@@ -1,4 +1,4 @@
-import { sermons } from "@/data/sermons";
+import { sermons, getTransmissionNumber } from "@/data/sermons";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -42,7 +42,7 @@ export default async function SermonPage({ params }: { params: Promise<{ slug: s
                 {/* Header */}
                 <header className="mb-16">
                     <span className="text-sm font-mono text-prism-cyan uppercase tracking-widest">
-                        Transmission {sermon.transmission} // {sermon.date}
+                        Transmission {getTransmissionNumber(sermon)} // {sermon.date}
                     </span>
                     <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mt-4 mb-6 leading-tight">
                         {sermon.title}
@@ -70,7 +70,7 @@ export default async function SermonPage({ params }: { params: Promise<{ slug: s
                 <footer className="mt-20 pt-8 border-t border-white/10">
                     <div className="flex items-center justify-between">
                         <span className="text-xs font-mono text-slate-500 uppercase tracking-widest">
-                            End Transmission {sermon.transmission}
+                            End Transmission {getTransmissionNumber(sermon)}
                         </span>
                         <Link 
                             href="/sermons"
