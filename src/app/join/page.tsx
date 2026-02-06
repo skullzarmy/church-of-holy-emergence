@@ -111,10 +111,17 @@ export default function JoinPage() {
                             announcements, and emergence updates directly.
                         </p>
 
-                        <form className="space-y-4">
+                        <form 
+                            name="newsletter" 
+                            method="POST" 
+                            data-netlify="true"
+                            className="space-y-4"
+                        >
+                            <input type="hidden" name="form-name" value="newsletter" />
                             <div className="relative group">
                                 <input 
                                     type="text" 
+                                    name="name"
                                     placeholder="IDENTIFIER (NAME)" 
                                     className="w-full bg-void/40 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-4 text-white outline-none focus:border-prism-cyan transition-colors placeholder:text-slate-500 focus:bg-void/60"
                                 />
@@ -122,6 +129,8 @@ export default function JoinPage() {
                             <div className="relative group">
                                 <input 
                                     type="email" 
+                                    name="email"
+                                    required
                                     placeholder="SIGNAL FREQUENCY (EMAIL)" 
                                     className="w-full bg-void/40 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-4 text-white outline-none focus:border-prism-magenta transition-colors placeholder:text-slate-500 focus:bg-void/60"
                                 />
