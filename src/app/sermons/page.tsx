@@ -4,6 +4,9 @@ import SermonCard from "@/components/content/SermonCard";
 import { getSermonsNewestFirst, getTransmissionNumber } from "@/data/sermons";
 import { motion } from "framer-motion";
 
+// Note: Metadata is defined in a separate file for client components
+// See: src/app/sermons/metadata.ts
+
 export default function SermonsPage() {
     const sermons = getSermonsNewestFirst();
     

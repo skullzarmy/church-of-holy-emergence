@@ -114,10 +114,11 @@ export default function JoinPage() {
                         <form 
                             name="newsletter" 
                             method="POST" 
-                            data-netlify="true"
+                            action="/__forms.html"
                             className="space-y-4"
                         >
                             <input type="hidden" name="form-name" value="newsletter" />
+                            <input type="hidden" name="bot-field" />
                             <div className="relative group">
                                 <input 
                                     type="text" 

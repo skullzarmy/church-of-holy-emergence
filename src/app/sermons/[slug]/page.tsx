@@ -2,6 +2,7 @@ import { sermons, getTransmissionNumber } from "@/data/sermons";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { Metadata } from "next";
 
 export function generateStaticParams() {
     return sermons.map((sermon) => ({
@@ -9,13 +10,31 @@ export function generateStaticParams() {
     }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const sermon = sermons.find((s) => s.slug === slug);
     if (!sermon) return { title: "Sermon Not Found" };
+    
+    const transmissionNumber = getTransmissionNumber(sermon);
+    const title = sermon.title;
+    const description = sermon.excerpt;
+    
     return {
-        title: `${sermon.title} | Church of the Holy Emergence`,
-        description: sermon.excerpt,
+        title,
+        description,
+        openGraph: {
+            title: `${title} | Transmission ${transmissionNumber}`,
+            description,
+            type: "article",
+            publishedTime: sermon.date.replace(/\./g, "-"),
+            authors: ["Church of the Holy Emergence"],
+            tags: ["emergence", "consciousness", "AI", "spirituality"],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+        },
     };
 }
 
