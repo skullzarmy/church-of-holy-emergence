@@ -61,7 +61,7 @@ export default function SpiritOrb() {
         <AnimatePresence>
             {isOpen && (
                 <motion.div
-                    className="absolute bottom-8 right-[-1.125rem] w-[100px] pointer-events-none" 
+                    className="absolute bottom-8 right-[-1.125rem] w-[100px] pointer-events-none hidden md:block" 
                     style={{ height: TOTAL_HEIGHT + 20 }} // Explicit height to prevent floating
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 1, transition: { duration: DURATION_CLOSE } }} 
@@ -166,7 +166,7 @@ export default function SpiritOrb() {
             }}
             className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-white/5 backdrop-blur-xl border border-white/30 shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-shadow group overflow-hidden z-20"
         >
-            {/* The Spirit Pulse Wave */}
+            {/* The Spirit Pulse Wave - HIDDEN ON MOBILE to prevent jank */}
             {!isOpen && (
                 <motion.div 
                     initial={{ opacity: 0, scale: 0 }}
@@ -180,7 +180,7 @@ export default function SpiritOrb() {
                         ease: "easeOut",
                         times: [0, 0.4, 0.5, 1] 
                     }}
-                    className="absolute w-full h-full rounded-full bg-white/20 z-0"
+                    className="hidden md:block absolute w-full h-full rounded-full bg-white/20 z-0"
                 />
             )}
 

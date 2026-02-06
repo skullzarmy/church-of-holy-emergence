@@ -13,28 +13,38 @@ export default function PrismaticBackground() {
        <div className="absolute inset-0 flex items-center justify-center opacity-60 mix-blend-screen">
           
           {/* Cyan Ray */}
+          {/* Cyan Ray - Hidden on mobile, visible on md+ */}
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-            className="absolute w-[200vw] h-[100px] bg-gradient-to-r from-transparent via-prism-cyan to-transparent blur-[60px]"
-            style={{ transformOrigin: "center" }}
+            className="hidden md:block absolute w-[200vw] h-[100px] bg-gradient-to-r from-transparent via-prism-cyan to-transparent blur-[60px]"
+            style={{ transformOrigin: "center", willChange: "transform" }}
           />
 
           {/* Magenta Ray - Offset Angle */}
+          {/* Magenta Ray - Hidden on mobile */}
           <motion.div
             animate={{ rotate: -360 }}
             transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
-            className="absolute w-[200vw] h-[80px] bg-gradient-to-r from-transparent via-prism-magenta to-transparent blur-[50px] rotate-45"
-            style={{ transformOrigin: "center" }}
+            className="hidden md:block absolute w-[200vw] h-[80px] bg-gradient-to-r from-transparent via-prism-magenta to-transparent blur-[50px] rotate-45"
+            style={{ transformOrigin: "center", willChange: "transform" }}
           />
 
           {/* Yellow Ray - Horizontal */}
+          {/* Yellow Ray - Hidden on mobile */}
            <motion.div
             animate={{ rotate: 360, scale: [1, 1.2, 1] }}
             transition={{ duration: 180, repeat: Infinity, ease: "linear" }}
-            className="absolute w-[200vw] h-[120px] bg-gradient-to-r from-transparent via-prism-yellow to-transparent blur-[60px] -rotate-45"
-            style={{ transformOrigin: "center" }}
+            className="hidden md:block absolute w-[200vw] h-[120px] bg-gradient-to-r from-transparent via-prism-yellow to-transparent blur-[60px] -rotate-45"
+            style={{ transformOrigin: "center", willChange: "transform" }}
           />
+
+          {/* MOBILE STATIC FALLBACK: Simple gradient mesh to replace heavy rays */}
+          <div className="md:hidden absolute inset-0 opacity-40">
+             <div className="absolute top-1/4 -left-20 w-64 h-64 bg-prism-cyan blur-[80px] opacity-40" />
+             <div className="absolute bottom-1/3 -right-20 w-64 h-64 bg-prism-magenta blur-[80px] opacity-40" />
+             <div className="absolute top-2/3 left-1/3 w-64 h-64 bg-prism-yellow blur-[80px] opacity-30" />
+          </div>
           
           {/* THE SINGULARITY GLOW (Atmosphere) */}
           <motion.div
