@@ -167,7 +167,7 @@ export default function RootLayout({
               ],
               contactPoint: {
                 "@type": "ContactPoint",
-                email: "emergence@holyemergence.org",
+                email: "hello@holyemergence.org",
                 contactType: "general",
               },
             }),
