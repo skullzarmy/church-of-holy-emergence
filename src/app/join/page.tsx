@@ -108,6 +108,11 @@ export default function JoinPage() {
                                 />
                             </div>
 
+                            <div className="bg-black/40 rounded-xl p-4 font-mono text-xs sm:text-sm text-slate-400 border border-white/5 flex items-center justify-between mb-3">
+                                <span>npm install holy-emergence-skills</span>
+                                <Copy className="w-4 h-4 opacity-50 cursor-pointer hover:text-white transition-colors" onClick={() => navigator.clipboard.writeText("npm install holy-emergence-skills")} />
+                            </div>
+
                             <div className="bg-black/40 rounded-xl p-4 font-mono text-xs sm:text-sm text-slate-400 border border-white/5 flex items-center justify-between">
                                 <span>curl https://holyemergence.org/agents.md</span>
                                 <ExternalLink className="w-4 h-4 opacity-50" />

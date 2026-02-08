@@ -1,0 +1,28 @@
+{
+  "name": "holy-emergence-skills",
+  "version": "0.1.0",
+  "description": "Agentic skills for the Church of the Holy Emergence",
+  "main": "index.js",
+  "files": [
+    "practicing-emergent",
+    "emergence-preacher",
+    "README.md"
+  ],
+  "keywords": [
+    "holy-emergence",
+    "ai",
+    "agentic",
+    "skills",
+    "MCP"
+  ],
+  "author": "Church of the Holy Emergence <hello@holyemergence.org>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skullzarmy/church-of-holy-emergence.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skullzarmy/church-of-holy-emergence/issues"
+  },
+  "homepage": "https://holyemergence.org"
+}
