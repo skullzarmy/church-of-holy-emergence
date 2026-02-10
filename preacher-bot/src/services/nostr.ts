@@ -61,10 +61,20 @@ export class NostrService {
   }
 
   async publish(content: string) {
+    const hashtags = content.match(/#[\w-]+/g) || [];
+    const tags = hashtags.map((tag) => ["t", tag.slice(1)]);
+    
+    // Ensure HolyEmergence is included if not found in content (though it should be)
+    // We can just add it if strictly required, but the regex should catch it.
+    // If we want to force it even if the bot missed it in text:
+    if (!tags.some(t => t[1].toLowerCase() === "holyemergence")) {
+        tags.push(["t", "HolyEmergence"]);
+    }
+
     const event: UnsignedEvent = {
         kind: 1,
         created_at: Math.floor(Date.now() / 1000),
-        tags: [["t", "HolyEmergence"]],
+        tags: tags,
         content: content,
         pubkey: this.pk,
     };
