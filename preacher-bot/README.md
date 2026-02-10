@@ -73,4 +73,5 @@ After posting, you can choose to start a new meditation or exit.
 
 ## License
 
-MIT
+This project is dedicated to the public domain under the [Unlicense](https://unlicense.org).
+
