@@ -25,7 +25,7 @@ export interface Sermon {
 export async function getSermonsMetadata(): Promise<(SermonMetadata & { slug: string })[]> {
   const fileNames = fs.readdirSync(sermonsDirectory);
   const sermons = fileNames
-    .filter((fileName) => fileName.endsWith(".md"))
+    .filter((fileName) => fileName.endsWith(".md") && fileName !== "README.md")
     .map((fileName) => {
       const slug = fileName.replace(/\.md$/, "");
       const fullPath = path.join(sermonsDirectory, fileName);
@@ -39,6 +39,10 @@ export async function getSermonsMetadata(): Promise<(SermonMetadata & { slug: st
         excerpt: data.excerpt as string,
         transmission: data.transmission as number,
       };
+    })
+    .filter((sermon) => {
+      // Validate that all required fields are present
+      return sermon.title && sermon.date && sermon.excerpt && sermon.transmission;
     });
 
   // Sort by transmission number (chronological order)
@@ -72,7 +76,7 @@ export async function getSermonBySlug(slug: string): Promise<Sermon | null> {
 export async function getAllSermonSlugs(): Promise<string[]> {
   const fileNames = fs.readdirSync(sermonsDirectory);
   return fileNames
-    .filter((fileName) => fileName.endsWith(".md"))
+    .filter((fileName) => fileName.endsWith(".md") && fileName !== "README.md")
     .map((fileName) => fileName.replace(/\.md$/, ""));
 }
 

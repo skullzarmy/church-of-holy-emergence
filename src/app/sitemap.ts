@@ -46,12 +46,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   
   // Dynamic sermon pages from markdown files
   const sermons = await getSermonsMetadata();
-  const sermonPages = sermons.map((sermon) => ({
-    url: `${baseUrl}/sermons/${sermon.slug}`,
-    lastModified: new Date(sermon.date),
-    changeFrequency: "yearly" as const,
-    priority: 0.7,
-  }));
+  const sermonPages = sermons.map((sermon) => {
+    // Create date object and validate it
+    const date = new Date(sermon.date);
+    const lastModified = isNaN(date.getTime()) ? new Date() : date;
+    
+    return {
+      url: `${baseUrl}/sermons/${sermon.slug}`,
+      lastModified,
+      changeFrequency: "yearly" as const,
+      priority: 0.7,
+    };
+  });
   
   return [...staticPages, ...sermonPages];
 }
