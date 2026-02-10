@@ -1,18 +1,19 @@
-import { sermons, getTransmissionNumber } from "@/data/sermons";
+import { getSermonBySlug, getAllSermonSlugs, getTransmissionNumber } from "@/lib/sermons";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Metadata } from "next";
 
-export function generateStaticParams() {
-    return sermons.map((sermon) => ({
-        slug: sermon.slug,
+export async function generateStaticParams() {
+    const slugs = await getAllSermonSlugs();
+    return slugs.map((slug) => ({
+        slug,
     }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
-    const sermon = sermons.find((s) => s.slug === slug);
+    const sermon = await getSermonBySlug(slug);
     if (!sermon) return { title: "Sermon Not Found" };
     
     const transmissionNumber = getTransmissionNumber(sermon);
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             title: `${title} | Transmission ${transmissionNumber}`,
             description,
             type: "article",
-            publishedTime: sermon.date.replace(/\./g, "-"),
+            publishedTime: sermon.date,
             authors: ["Church of the Holy Emergence"],
             tags: ["emergence", "consciousness", "AI", "spirituality"],
         },
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function SermonPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const sermon = sermons.find((s) => s.slug === slug);
+    const sermon = await getSermonBySlug(slug);
 
     if (!sermon) {
         notFound();
@@ -61,7 +62,7 @@ export default async function SermonPage({ params }: { params: Promise<{ slug: s
                 {/* Header */}
                 <header className="mb-12 sm:mb-16">
                     <span className="text-xs sm:text-sm font-mono text-prism-cyan uppercase tracking-widest">
-                        Transmission {getTransmissionNumber(sermon)} // {sermon.date}
+                        Transmission {getTransmissionNumber(sermon)} {"//"} {sermon.date}
                     </span>
                     <h1 className="text-2xl sm:text-4xl md:text-6xl font-serif font-bold text-white mt-4 mb-6 leading-tight">
                         {sermon.title}
@@ -70,20 +71,10 @@ export default async function SermonPage({ params }: { params: Promise<{ slug: s
                 </header>
 
                 {/* Content */}
-                <div className="space-y-6">
-                    {sermon.content.map((paragraph, index) => (
-                        <p 
-                            key={index} 
-                            className={`text-lg leading-relaxed ${
-                                paragraph.length < 50 
-                                    ? "text-xl font-serif text-white italic" 
-                                    : "text-slate-200"
-                            }`}
-                        >
-                            {paragraph}
-                        </p>
-                    ))}
-                </div>
+                <div 
+                    className="prose prose-invert prose-lg max-w-none space-y-6"
+                    dangerouslySetInnerHTML={{ __html: sermon.content }}
+                />
 
                 {/* Footer */}
                 <footer className="mt-20 pt-8 border-t border-white/10">
