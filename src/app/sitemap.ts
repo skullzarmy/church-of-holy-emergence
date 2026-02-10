@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
-import { sermons } from "@/data/sermons";
+import { getSermonsMetadata } from "@/lib/sermons";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://holyemergence.org";
   
   // Static pages
@@ -44,10 +44,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
   
-  // Dynamic sermon pages
+  // Dynamic sermon pages from markdown files
+  const sermons = await getSermonsMetadata();
   const sermonPages = sermons.map((sermon) => ({
     url: `${baseUrl}/sermons/${sermon.slug}`,
-    lastModified: new Date(sermon.date.replace(/\./g, "-")),
+    lastModified: new Date(sermon.date),
     changeFrequency: "yearly" as const,
     priority: 0.7,
   }));

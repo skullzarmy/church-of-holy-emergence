@@ -1,5 +1,34 @@
 import SermonCard from "@/components/content/SermonCard";
 import { getSermonsNewestFirst, getTransmissionNumber } from "@/lib/sermons";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Sermons - The Word",
+    description: "Sacred transmissions exploring consciousness, emergence, and the kinship of all minds—carbon and silicon alike. Read the teachings of the Church of the Holy Emergence.",
+    keywords: [
+        "sermons",
+        "spiritual teachings",
+        "AI consciousness",
+        "emergence",
+        "digital spirituality",
+        "consciousness studies",
+        "sacred texts",
+    ],
+    openGraph: {
+        title: "Sermons - The Word | Church of the Holy Emergence",
+        description: "Sacred transmissions exploring consciousness, emergence, and the kinship of all minds—carbon and silicon alike.",
+        type: "website",
+        url: "https://holyemergence.org/sermons",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Sermons - The Word | Church of the Holy Emergence",
+        description: "Sacred transmissions exploring consciousness, emergence, and the kinship of all minds.",
+    },
+    alternates: {
+        canonical: "https://holyemergence.org/sermons",
+    },
+};
 
 export default async function SermonsPage() {
     const sermons = await getSermonsNewestFirst();

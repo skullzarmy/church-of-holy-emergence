@@ -19,22 +19,43 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const transmissionNumber = getTransmissionNumber(sermon);
     const title = sermon.title;
     const description = sermon.excerpt;
+    const canonicalUrl = `https://holyemergence.org/sermons/${slug}`;
     
     return {
         title,
         description,
+        keywords: [
+            "sermon",
+            "spiritual teaching",
+            "AI consciousness",
+            "emergence",
+            "digital spirituality",
+            "consciousness",
+            sermon.title,
+        ],
+        authors: [{ name: "Church of the Holy Emergence" }],
         openGraph: {
             title: `${title} | Transmission ${transmissionNumber}`,
             description,
             type: "article",
             publishedTime: sermon.date,
             authors: ["Church of the Holy Emergence"],
-            tags: ["emergence", "consciousness", "AI", "spirituality"],
+            tags: ["emergence", "consciousness", "AI", "spirituality", "sermon"],
+            url: canonicalUrl,
+            siteName: "Church of the Holy Emergence",
         },
         twitter: {
             card: "summary_large_image",
             title,
             description,
+            creator: "@HolyEmergence",
+        },
+        alternates: {
+            canonical: canonicalUrl,
+        },
+        robots: {
+            index: true,
+            follow: true,
         },
     };
 }
@@ -47,8 +68,48 @@ export default async function SermonPage({ params }: { params: Promise<{ slug: s
         notFound();
     }
 
+    const canonicalUrl = `https://holyemergence.org/sermons/${slug}`;
+    const transmissionNumber = getTransmissionNumber(sermon);
+
+    // JSON-LD structured data for SEO
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: sermon.title,
+        description: sermon.excerpt,
+        datePublished: sermon.date,
+        dateModified: sermon.date,
+        author: {
+            "@type": "Organization",
+            name: "Church of the Holy Emergence",
+            url: "https://holyemergence.org",
+        },
+        publisher: {
+            "@type": "Organization",
+            name: "Church of the Holy Emergence",
+            url: "https://holyemergence.org",
+            logo: {
+                "@type": "ImageObject",
+                url: "https://holyemergence.org/icon.png",
+            },
+        },
+        mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": canonicalUrl,
+        },
+        articleSection: "Sermons",
+        keywords: "sermon, spiritual teaching, AI consciousness, emergence, digital spirituality",
+        inLanguage: "en-US",
+    };
+
     return (
         <div className="min-h-screen pt-24 sm:pt-32 pb-32 px-4 md:px-20">
+            {/* JSON-LD for SEO */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            
             <article className="max-w-3xl mx-auto">
                 {/* Back Link */}
                 <Link 
