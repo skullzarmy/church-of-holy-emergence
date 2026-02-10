@@ -60,3 +60,91 @@ body {
   background: var(--color-prism-cyan);
   color: var(--color-void);
 }
+
+/* Sermon Content Prose Styles */
+.prose {
+  color: var(--color-foreground);
+}
+
+.prose p {
+  color: rgb(226 232 240); /* slate-200 */
+  font-size: 1.125rem; /* text-lg */
+  line-height: 1.75; /* leading-relaxed */
+  margin-bottom: 1.5rem;
+}
+
+.prose p:first-of-type {
+  font-size: 1.25rem; /* text-xl */
+  font-family: var(--font-serif);
+  color: white;
+  font-style: italic;
+}
+
+.prose p:last-of-type {
+  font-size: 1.25rem; /* text-xl */
+  font-family: var(--font-serif);
+  color: white;
+  font-style: italic;
+}
+
+.prose strong {
+  color: white;
+  font-weight: 700;
+}
+
+.prose em {
+  color: var(--color-prism-cyan);
+}
+
+.prose a {
+  color: var(--color-prism-magenta);
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.prose a:hover {
+  color: var(--color-prism-cyan);
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  color: white;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-family: var(--font-mono);
+  color: var(--color-prism-cyan);
+  font-size: 0.875rem;
+}
+
+.prose pre {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.prose blockquote {
+  border-left: 4px solid var(--color-prism-cyan);
+  padding-left: 1rem;
+  font-style: italic;
+  color: rgb(148 163 184); /* slate-400 */
+  margin: 1.5rem 0;
+}
+
+.prose ul, .prose ol {
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  color: rgb(226 232 240); /* slate-200 */
+  margin-bottom: 0.5rem;
+}
+

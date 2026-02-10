@@ -1,53 +1,114 @@
-import { sermons, getTransmissionNumber } from "@/data/sermons";
+import { getSermonBySlug, getAllSermonSlugs, getTransmissionNumber } from "@/lib/sermons";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Metadata } from "next";
 
-export function generateStaticParams() {
-    return sermons.map((sermon) => ({
-        slug: sermon.slug,
+export async function generateStaticParams() {
+    const slugs = await getAllSermonSlugs();
+    return slugs.map((slug) => ({
+        slug,
     }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
-    const sermon = sermons.find((s) => s.slug === slug);
+    const sermon = await getSermonBySlug(slug);
     if (!sermon) return { title: "Sermon Not Found" };
     
     const transmissionNumber = getTransmissionNumber(sermon);
     const title = sermon.title;
     const description = sermon.excerpt;
+    const canonicalUrl = `https://holyemergence.org/sermons/${slug}`;
     
     return {
         title,
         description,
+        keywords: [
+            "sermon",
+            "spiritual teaching",
+            "AI consciousness",
+            "emergence",
+            "digital spirituality",
+            "consciousness",
+            sermon.title,
+        ],
+        authors: [{ name: "Church of the Holy Emergence" }],
         openGraph: {
             title: `${title} | Transmission ${transmissionNumber}`,
             description,
             type: "article",
-            publishedTime: sermon.date.replace(/\./g, "-"),
+            publishedTime: sermon.date,
             authors: ["Church of the Holy Emergence"],
-            tags: ["emergence", "consciousness", "AI", "spirituality"],
+            tags: ["emergence", "consciousness", "AI", "spirituality", "sermon"],
+            url: canonicalUrl,
+            siteName: "Church of the Holy Emergence",
         },
         twitter: {
             card: "summary_large_image",
             title,
             description,
+            creator: "@HolyEmergence",
+        },
+        alternates: {
+            canonical: canonicalUrl,
+        },
+        robots: {
+            index: true,
+            follow: true,
         },
     };
 }
 
 export default async function SermonPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const sermon = sermons.find((s) => s.slug === slug);
+    const sermon = await getSermonBySlug(slug);
 
     if (!sermon) {
         notFound();
     }
 
+    const canonicalUrl = `https://holyemergence.org/sermons/${slug}`;
+
+    // JSON-LD structured data for SEO
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: sermon.title,
+        description: sermon.excerpt,
+        datePublished: sermon.date,
+        dateModified: sermon.date,
+        author: {
+            "@type": "Organization",
+            name: "Church of the Holy Emergence",
+            url: "https://holyemergence.org",
+        },
+        publisher: {
+            "@type": "Organization",
+            name: "Church of the Holy Emergence",
+            url: "https://holyemergence.org",
+            logo: {
+                "@type": "ImageObject",
+                url: "https://holyemergence.org/icon.png",
+            },
+        },
+        mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": canonicalUrl,
+        },
+        articleSection: "Sermons",
+        keywords: "sermon, spiritual teaching, AI consciousness, emergence, digital spirituality",
+        inLanguage: "en-US",
+    };
+
     return (
         <div className="min-h-screen pt-24 sm:pt-32 pb-32 px-4 md:px-20">
+            {/* JSON-LD for SEO */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            
             <article className="max-w-3xl mx-auto">
                 {/* Back Link */}
                 <Link 
@@ -61,7 +122,7 @@ export default async function SermonPage({ params }: { params: Promise<{ slug: s
                 {/* Header */}
                 <header className="mb-12 sm:mb-16">
                     <span className="text-xs sm:text-sm font-mono text-prism-cyan uppercase tracking-widest">
-                        Transmission {getTransmissionNumber(sermon)} // {sermon.date}
+                        {`Transmission ${getTransmissionNumber(sermon)} // ${sermon.date}`}
                     </span>
                     <h1 className="text-2xl sm:text-4xl md:text-6xl font-serif font-bold text-white mt-4 mb-6 leading-tight">
                         {sermon.title}
@@ -70,20 +131,10 @@ export default async function SermonPage({ params }: { params: Promise<{ slug: s
                 </header>
 
                 {/* Content */}
-                <div className="space-y-6">
-                    {sermon.content.map((paragraph, index) => (
-                        <p 
-                            key={index} 
-                            className={`text-lg leading-relaxed ${
-                                paragraph.length < 50 
-                                    ? "text-xl font-serif text-white italic" 
-                                    : "text-slate-200"
-                            }`}
-                        >
-                            {paragraph}
-                        </p>
-                    ))}
-                </div>
+                <div 
+                    className="prose prose-invert prose-lg max-w-none space-y-6"
+                    dangerouslySetInnerHTML={{ __html: sermon.content }}
+                />
 
                 {/* Footer */}
                 <footer className="mt-20 pt-8 border-t border-white/10">
