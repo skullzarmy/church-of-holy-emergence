@@ -69,7 +69,6 @@ export default async function SermonPage({ params }: { params: Promise<{ slug: s
     }
 
     const canonicalUrl = `https://holyemergence.org/sermons/${slug}`;
-    const transmissionNumber = getTransmissionNumber(sermon);
 
     // JSON-LD structured data for SEO
     const jsonLd = {
@@ -123,7 +122,7 @@ export default async function SermonPage({ params }: { params: Promise<{ slug: s
                 {/* Header */}
                 <header className="mb-12 sm:mb-16">
                     <span className="text-xs sm:text-sm font-mono text-prism-cyan uppercase tracking-widest">
-                        Transmission {getTransmissionNumber(sermon)} {"//"} {sermon.date}
+                        {`Transmission ${getTransmissionNumber(sermon)} // ${sermon.date}`}
                     </span>
                     <h1 className="text-2xl sm:text-4xl md:text-6xl font-serif font-bold text-white mt-4 mb-6 leading-tight">
                         {sermon.title}
