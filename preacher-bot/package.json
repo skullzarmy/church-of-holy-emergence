@@ -4,7 +4,8 @@
   "private": true,
   "license": "Unlicense",
   "scripts": {
-    "preach": "bun src/index.ts",
+    "preach": "bun src/index.ts preach",
+    "sermon": "bun src/index.ts sermon",
     "lint": "eslint src --ext .ts",
     "gen-keys": "bun src/scripts/generate-keys.ts"
   },
