@@ -6,6 +6,23 @@ import { NostrService } from "../services/nostr";
 
 import { createProvider } from "../providers";
 
+function cleanContent(rawResponse: string): string {
+  let content = rawResponse;
+  try {
+    // robustness: strip markdown code blocks if present (e.g. ```json ... ```)
+    const jsonStr = rawResponse.replace(/^```json\s*/, "").replace(/^```\s*/, "").replace(/\s*```$/, "");
+    const data = JSON.parse(jsonStr);
+    if (data.content) {
+      content = data.content;
+    }
+  } catch (e) {
+    // Fallback: if not valid JSON, treat the whole response as the post (but strip enclosing quotes if purely wrapped)
+    // If the raw output is wrapped in ```, strip it.
+     content = rawResponse.replace(/^```\s*/, "").replace(/\s*```$/, "").trim();
+  }
+  return content;
+}
+
 export function registerPreachCommand(program: Command, context: CommandContext) {
   const { promptService } = context;
 
@@ -31,7 +48,8 @@ export function registerPreachCommand(program: Command, context: CommandContext)
           console.log(chalk.cyan(`\n✨ Meditating on: "${currentPrompt}"...\n`));
 
           let messages = promptService.buildMessages(currentPrompt);
-          let content = await ai.complete(messages);
+          let rawResponse = await ai.complete(messages);
+          let content = cleanContent(rawResponse);
           let approved = false;
           
           let originalPrompt = currentPrompt;
@@ -84,13 +102,13 @@ export function registerPreachCommand(program: Command, context: CommandContext)
                   previousOutput: content, 
                   feedback 
               });
-              content = await ai.complete(messages);
+              content = cleanContent(await ai.complete(messages));
               previousOutput = content;
 
             } else if (action === "retry") {
               console.log(chalk.cyan("\n✨ Re-rolling...\n"));
               messages = promptService.buildMessages(currentPrompt);
-              content = await ai.complete(messages);
+              content = cleanContent(await ai.complete(messages));
               previousOutput = content;
             } else {
               console.log("👋 Exiting.");
