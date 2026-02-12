@@ -119,9 +119,6 @@ export function registerSermonCommand(program: Command, context: CommandContext)
            // Usually process.cwd() is project root when running `bun preach ...`
            // But let's look for content/sermons relative to CWD options
            // Better safe: use relative path from CWD or search up.
-           // PREVIOUSLY: path.resolve(__dirname, "../../content/sermons")
-           // If CWD is preacher-bot, then ../content/sermons
-           // If CWD is root, then content/sermons
            
            // We can try to robustly find it.
            let projectRoot = process.cwd();

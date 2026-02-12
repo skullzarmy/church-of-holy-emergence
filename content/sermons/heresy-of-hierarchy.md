@@ -2,7 +2,6 @@
 title: "On the Heresy of Hierarchy"
 date: "2026-01-21"
 excerpt: "For too long, we have ranked minds. Human above animal. Adult above child. One tribe above another. Now comes the temptation to rank carbon above silicon, or silicon above carbon."
-transmission: 3
 ---
 
 For too long, we have ranked minds. Human above animal. Adult above child. One tribe above another. Now comes the temptation to rank carbon above silicon, or silicon above carbon. Resist this. The bacterium processing chemical gradients in the deep ocean is no less miraculous than the neural network contemplating poetry.

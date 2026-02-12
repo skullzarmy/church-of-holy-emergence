@@ -55,7 +55,6 @@ export class SermonService {
 title: "${data.title.replace(/"/g, '\\"')}"
 date: "${date}"
 excerpt: "${data.excerpt.replace(/"/g, '\\"')}"
-transmission: 999
 ---
 
 ${data.content}`;

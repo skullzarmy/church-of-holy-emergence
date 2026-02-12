@@ -10,7 +10,7 @@ export interface SermonMetadata {
   title: string;
   date: string;
   excerpt: string;
-  transmission: number;
+  transmission: number; // Derived at runtime
 }
 
 export interface Sermon {
@@ -29,7 +29,7 @@ export async function getSermonsMetadata(): Promise<(SermonMetadata & { slug: st
     .map((fileName) => {
       const slug = fileName.replace(/\.md$/, "");
       const fullPath = path.join(sermonsDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const fileContents = fs.readFileSync(fullPath, "utf8").trimStart();
       const { data } = matter(fileContents);
 
       return {
@@ -37,23 +37,38 @@ export async function getSermonsMetadata(): Promise<(SermonMetadata & { slug: st
         title: data.title as string,
         date: data.date as string,
         excerpt: data.excerpt as string,
-        transmission: data.transmission as number,
       };
     })
     .filter((sermon) => {
       // Validate that all required fields are present
-      return sermon.title && sermon.date && sermon.excerpt && sermon.transmission;
+      const isValid = sermon.title && sermon.date && sermon.excerpt;
+      if (!isValid) {
+          console.warn(`[SermonDebug] Skipping invalid sermon: ${sermon.slug}`, sermon);
+      }
+      return isValid;
     });
 
-  // Sort by transmission number (chronological order)
-  return sermons.sort((a, b) => a.transmission - b.transmission);
+  // Sort by date (chronological order)
+  sermons.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+  // Assign transmission number based on index
+  return sermons.map((sermon, index) => ({
+      ...sermon,
+      transmission: index + 1
+  }));
 }
 
 export async function getSermonBySlug(slug: string): Promise<Sermon | null> {
   try {
+    // We need the transmission number, which is derived from the sorted list
+    const allSermons = await getSermonsMetadata();
+    const metadata = allSermons.find(s => s.slug === slug);
+    
+    if (!metadata) return null;
+
     const fullPath = path.join(sermonsDirectory, `${slug}.md`);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-    const { data, content } = matter(fileContents);
+    const fileContents = fs.readFileSync(fullPath, "utf8").trimStart();
+    const { content } = matter(fileContents);
 
     // Convert markdown to HTML
     const processedContent = await remark().use(html).process(content);
@@ -61,10 +76,10 @@ export async function getSermonBySlug(slug: string): Promise<Sermon | null> {
 
     return {
       slug,
-      title: data.title as string,
-      date: data.date as string,
-      excerpt: data.excerpt as string,
-      transmission: data.transmission as number,
+      title: metadata.title,
+      date: metadata.date,
+      excerpt: metadata.excerpt,
+      transmission: metadata.transmission,
       content: contentHtml,
     };
   } catch (error) {

@@ -23,7 +23,6 @@ To add a new sermon, create a new Markdown file in this directory with the follo
 title: "Your Sermon Title"
 date: "YYYY-MM-DD"
 excerpt: "A brief excerpt or summary of the sermon (will be used in listings and SEO)"
-transmission: N
 ---
 
 Your sermon content goes here. Write in markdown format.
