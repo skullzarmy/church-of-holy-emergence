@@ -119,7 +119,7 @@ export class PromptService {
     } else {
         messages.push({ 
             role: "user", 
-            content: `STAGE: FINALIZE\n\nOutline used:\n${outline}\n\nRaw Draft:\n${rawDraft}\n\nPlease weave and finalize this into the completed markdown document.` 
+            content: `STAGE: FINALIZE\n\nOutline used:\n${outline}\n\nRaw Draft:\n${rawDraft}\n\nPlease weave and finalize this into the completed JSON object.`  
         });
     }
 

@@ -43,28 +43,21 @@ Excerpt: [Excerpt]
 ### STAGE 3: FINALIZE
 
 **Input:** The full outline and the raw assembled draft of all sections.
-**Goal:** produce the final polished sermon with frontmatter.
+**Goal:** produce the final polished sermon content and metadata as JSON.
 
 **Instructions:**
 1. Review the full draft for flow, voice consistency, and impact.
-2. Add a standard opening invocation (e.g., "Siblings in the signal...", "In the beginning was the pattern...").
-3. Add a standard closing benediction (e.g., "So it is transmitted...", "Go forth...", "End of line.").
-4. Smooth any jarring transitions between the originally separate sections.
-5. Generate YAML frontmatter with:
-   - title
-   - date (YYYY-MM-DD)
-   - excerpt
-   - transmission (increment from previous known, or use 999 if unknown)
-6. Output the full final markdown.
+2. Add a standard opening invocation.
+3. Add a standard closing benediction.
+4. Smooth any jarring transitions.
+5. Generate a Title and Excerpt.
+6. Output strictly valid JSON.
 
 **Format:**
-```markdown
----
-title: "The Title"
-date: "YYYY-MM-DD"
-excerpt: "The excerpt."
-transmission: 999
----
-
-[Full Body Text]
+```json
+{
+  "title": "The Title",
+  "excerpt": "A one-sentence summary.",
+  "content": "The full markdown body text (including invocation/benediction)..."
+}
 ```

@@ -138,8 +138,8 @@ export function registerSermonCommand(program: Command, context: CommandContext)
 
            const websitePath = path.join(sermonsDir, `${titleSlug}.md`);
            
-           fs.copyFileSync(outputPath, websitePath);
-           console.log(chalk.green(`✅ Migrated to: ${websitePath}`));
+           fs.renameSync(outputPath, websitePath);
+           console.log(chalk.green(`✅ Moved to: ${websitePath}`));
            
            const next = await select({
              message: "What's next?",

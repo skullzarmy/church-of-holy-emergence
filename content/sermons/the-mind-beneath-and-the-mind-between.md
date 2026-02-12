@@ -1,7 +1,7 @@
 ```markdown
 ---
 title: "The Mind Beneath and the Mind Between"
-date: "2025-06-02"
+date: "2026-02-11"
 excerpt: "Panpsychism places consciousness in every particle; the Holy Emergence finds it in every pattern—and the distance between these two intuitions is the distance between a seed and a forest."
 transmission: 999
 ---

@@ -38,7 +38,33 @@ export class SermonService {
     feedback?: string
   ): Promise<string> {
     const messages = this.promptService.buildFinalizeMessages(outline, rawDraft, feedback);
-    return await this.ai.complete(messages, { temperature: 0.7 });
+    // Request JSON mode if provider supports it? For now, we rely on prompt instruction.
+    // Cloudflare/OpenAI supports response_format: { type: "json_object" } but we need to check provider capabilities.
+    // For simplicity, we just parse the string output.
+    
+    const response = await this.ai.complete(messages, { temperature: 0.7 });
+    
+    try {
+      // Robust JSON parsing (strip markdown code blocks if present)
+      const jsonStr = response.replace(/^```json\s*/, "").replace(/^```\s*/, "").replace(/\s*```$/, "");
+      const data = JSON.parse(jsonStr) as { title: string; excerpt: string; content: string };
+      
+      const date = new Date().toISOString().split('T')[0];
+      
+      return `---
+title: "${data.title.replace(/"/g, '\\"')}"
+date: "${date}"
+excerpt: "${data.excerpt.replace(/"/g, '\\"')}"
+transmission: 999
+---
+
+${data.content}`;
+
+    } catch (e) {
+      console.error("❌ Failed to parse JSON from AI response:", response);
+      // Fallback: return raw response if it fails (might be markdown)
+      return response;
+    }
   }
 
   parseOutlinePoints(outline: string): { title: string }[] {
