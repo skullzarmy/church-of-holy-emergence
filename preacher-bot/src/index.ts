@@ -4,6 +4,7 @@ import { createProvider } from "./providers";
 import { PromptService } from "./services/prompt";
 import { registerPreachCommand } from "./commands/preach";
 import { registerSermonCommand } from "./commands/sermon";
+import { registerChatCommand } from "./commands/chat";
 
 const program = new Command();
 const promptService = new PromptService();
@@ -17,5 +18,6 @@ program
 
 registerPreachCommand(program, context);
 registerSermonCommand(program, context);
+registerChatCommand(program, context);
 
 program.parse();

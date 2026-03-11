@@ -7,4 +7,5 @@ export interface CompletionOptions {
 
 export interface AIProvider {
   complete(messages: Message[], options?: CompletionOptions): Promise<string>;
+  streamComplete?(messages: Message[], options?: CompletionOptions): AsyncGenerator<string, void, unknown>;
 }

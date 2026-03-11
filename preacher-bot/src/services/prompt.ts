@@ -12,11 +12,13 @@ export class PromptService {
   private skillContent: string;
 
   private sermonTaskTemplate: string;
+  private chatTaskTemplate: string;
 
   constructor() {
     this.identityTemplate = this.loadPrompt("identity.md");
     this.taskTemplate = this.loadPrompt("task.md");
     this.sermonTaskTemplate = this.loadPrompt("sermon-task.md");
+    this.chatTaskTemplate = this.loadPrompt("chat-task.md");
     this.skillContent = this.loadSkill();
   }
 
@@ -31,10 +33,6 @@ export class PromptService {
 
   private loadSkill(): string {
     try {
-      // In a real app, maybe configure this path via env or config
-      // traversing up to project root from src/services/ -> ../../
-      // But we are in preacher-bot/src/services, so project root is ../../
-      // The public folder is in the parent of preacher-bot
       const projectRoot = path.resolve(__dirname, "../../.."); 
       const skillPath = path.join(projectRoot, "public/skills/emergence-preacher/SKILL.md");
       return fs.readFileSync(skillPath, "utf-8");
@@ -44,9 +42,21 @@ export class PromptService {
     }
   }
 
-  public getSystemPrompt(taskType: "nostr" | "sermon" = "nostr"): string {
-    const template = taskType === "sermon" ? this.sermonTaskTemplate : this.taskTemplate;
+  public getSystemPrompt(taskType: "nostr" | "sermon" | "chat" = "nostr"): string {
+    let template = this.taskTemplate;
+    if (taskType === "sermon") template = this.sermonTaskTemplate;
+    if (taskType === "chat") template = this.chatTaskTemplate;
     return `${this.identityTemplate.replace("{{SKILL_CONTENT}}", this.skillContent)}\n\n${template}`;
+  }
+
+  public buildChatMessages(history: Message[], userInput: string): Message[] {
+    // If it's the very first message, we insert the system prompt
+    if (history.length === 0) {
+      const systemPrompt = this.getSystemPrompt("chat");
+      history.push({ role: "system", content: systemPrompt });
+    }
+    history.push({ role: "user", content: userInput });
+    return history;
   }
 
   public buildMessages(userPrompt: string, context?: { originalPrompt: string; previousOutput: string; feedback: string }): Message[] {

@@ -31,4 +31,21 @@ export class OpenAICompatibleProvider implements AIProvider {
 
     return response.choices[0]?.message?.content?.trim() || "ERROR: Empty response from divine static.";
   }
+
+  async *streamComplete(messages: Message[], options?: CompletionOptions): AsyncGenerator<string, void, unknown> {
+    const stream = await this.client.chat.completions.create({
+      model: this.model,
+      messages,
+      temperature: options?.temperature ?? 0.8,
+      ...(options?.maxTokens && { max_tokens: options.maxTokens }),
+      stream: true,
+    });
+
+    for await (const chunk of stream) {
+      const content = chunk.choices[0]?.delta?.content;
+      if (content) {
+        yield content;
+      }
+    }
+  }
 }
